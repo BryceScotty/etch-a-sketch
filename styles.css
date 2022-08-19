@@ -1,0 +1,17 @@
+.gameScreenContainer{
+    display:flex;
+    border:black solid 1em;
+    flex-wrap:wrap;
+    flex-direction:column;
+    width:50vw;
+    height:50vw;
+}
+.pixelRows{
+    display:flex;
+    flex:2;
+}
+.pixelBlocks{
+    display:flex;
+    flex:auto;
+    border:black solid 1px;
+}
