@@ -16,18 +16,17 @@ gridSizeBtn.addEventListener('click', function createGrid(){
             pixelBlockCreation.textContent=''
             pixelRowCreation.appendChild(pixelBlockCreation)
         }}
-        createRainbowMode()
 })
 
 
 function createRainbowMode(){
     const pixelBlocks=document.querySelectorAll(".pixelBlocks")
-    rainbowMode.addEventListener('click', ()=>{
-        pixelBlocks.forEach((pixelBlock)=>{
-            pixelBlock.addEventListener('mouseover', ()=>{
-                let color3=Math.floor(Math.random()*255)
-                let color2=Math.floor(Math.random()*255)
-                let color1=Math.floor(Math.random()*255)
-                pixelBlock.style.cssText=`background-color: rgb(${color1},${color2},${color3});`
-        })})})}
+    pixelBlocks.forEach((pixelBlock)=>{
+        pixelBlock.addEventListener('mouseover', ()=>{
+            let color3=Math.floor(Math.random()*255)
+            let color2=Math.floor(Math.random()*255)
+            let color1=Math.floor(Math.random()*255)
+            pixelBlock.style.cssText=`background-color: rgb(${color1},${color2},${color3});`
+    })})}
 
+rainbowMode.addEventListener('click', createRainbowMode)
