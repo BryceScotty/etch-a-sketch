@@ -10,9 +10,14 @@
 </head>
 <body>
     <button class="gridSizeButton">Create Grid</button>
-    <button id="rainbowMode" class="rainbowMode button">Rainbow</button>
-    <button id="shadeMode" class="shadeMode button">Shade</button>
-    <button class="lightenMode button">Lighten</button>
+    <button id="rainbow" class="rainbowMode button">Rainbow</button>
+    <button id="shade" class="shadeMode button">Shade</button>
+    <button id="lighten" class="lightenMode button">Lighten</button>
+    <input type="color" value="#000000" id="specificColorChooser" class="specificColorChooser button">
+    <div class="slideContainer">
+        <input type="range" min="1" max="100" value="16" id="slider" class="slider">
+        <p class="sliderOutput"></p>
+    </div>
     <div class="gameScreenContainer">
     </div>
     
