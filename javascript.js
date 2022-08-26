@@ -1,6 +1,7 @@
 const gridSizeBtn=document.querySelector(".gridSizeButton")
 const gameScreenContainer=document.querySelector(".gameScreenContainer")
 const buttons=document.querySelectorAll(".button")
+const pixelBlocks=document.querySelectorAll(".pixelBlocks")
 
 const slider = document.getElementById("slider");
 const sliderOutput = document.querySelector(".sliderOutput");
@@ -28,11 +29,16 @@ gridSizeBtn.addEventListener('click', function createGrid(){
 })
 
 function entireGame(){
+    const toggleGridLines=document.querySelector(".gridLines")
+    const pixelBlocks=document.querySelectorAll(".pixelBlocks")
+    toggleGridLines.addEventListener('click', ()=>{
+        for(const pixelBlock of pixelBlocks){
+        pixelBlock.classList.toggle('noGridLines')
+        }})
     for(const button of buttons){
         button.addEventListener('click', ()=>{
             mode=button.id
         })}
-    const pixelBlocks=document.querySelectorAll(".pixelBlocks")
     pixelBlocks.forEach((pixelBlock)=>{
         pixelBlock.addEventListener('mouseover', ()=>{
             if(mode=='rainbow'){
@@ -61,6 +67,9 @@ function entireGame(){
                 console.log('ay')
                 pixelBlock.style.cssText=`background-color: ${specificColorChooser.value}`
             }
+            if(mode=='eraser'){
+                pixelBlock.style.backgroundColor=`rgb(255,255,255)`
+            }
         })})}
 
     
@@ -76,15 +85,9 @@ function entireGame(){
 
 
 
-
-
-
-
-
-
-
-
-
+        function fook(){
+            pixelBlocks.classList.toggle('noGridLines')
+        }
 
 
 
