@@ -1,7 +1,6 @@
 const gameScreen=document.querySelector(".gameScreen")
 const buttons=document.querySelectorAll(".button")
 const pixelBlocks=document.querySelectorAll(".pixelBlocks")
-const shade=document.getElementById("shade")
 const slider = document.querySelector(".slider");
 const sliderOutput = document.querySelector(".sliderOutput");
 sliderOutput.innerHTML=slider.value
@@ -66,6 +65,7 @@ function entireGame(){
                 arrayRGB[1]=Number(arrayRGB[1])-25
                 arrayRGB[2]=Number(arrayRGB[2])-25
                 pixelBlock.style.cssText=`background-color: rgb(${arrayRGB})`
+                console.log(pixelBlock.backgroundColor)
             }
             if(mode=='lighten'){
                 let stringBackgroundColors=pixelBlock.style.backgroundColor.slice(4,-1)
@@ -103,19 +103,33 @@ slider.addEventListener("mouseleave", ()=>{
 
 
 
-function oopsie(){
-for(i=0;i<16;i++){
-    const pixelRowCreation=document.createElement('div')
-    pixelRowCreation.classList.add('pixelRows')
-    gameScreen.appendChild(pixelRowCreation)
-    for(j=0;i<16;j++){
-        const pixelBlockCreation=document.createElement('div')
-        pixelBlockCreation.classList.add('pixelBlocks')
-        pixelBlockCreation.style.cssText='background-color: rgb(255,255,255)'
-        pixelRowCreation.appendChild(pixelBlockCreation)
-    }
-}
-entireGame()
-}
+// window.addEventListener('load', ()=>{
+// for(i=0;i<16;i++){
+//     const pixelRowCreation=document.createElement('div')
+//     pixelRowCreation.classList.add('pixelRows')
+//     gameScreen.appendChild(pixelRowCreation)
+//     for(j=0;i<16;j++){
+//         const pixelBlockCreation=document.createElement('div')
+//         pixelBlockCreation.classList.add('pixelBlocks')
+//         pixelBlockCreation.style.cssText='background-color: rgb(255,255,255)'
+//         pixelRowCreation.appendChild(pixelBlockCreation)
+//     }
+// }
+// })
 
-oopsie()
+
+window.addEventListener('load', ()=>{
+    for(i=0;i<16;i++){
+        const pixelRowCreation=document.createElement('div')
+        pixelRowCreation.classList.add('pixelRows')
+        gameScreen.appendChild(pixelRowCreation)
+        for(j=0;j<16;j++){
+            const pixelBlockCreation=document.createElement('div')
+            pixelBlockCreation.classList.add('pixelBlocks')
+            pixelBlockCreation.style.cssText='background-color: rgb(255,255,255)'
+            pixelRowCreation.appendChild(pixelBlockCreation)
+        }
+    }
+    entireGame()
+    sliderOutput.innerHTML = `Grid Size: ${slider.value} x ${slider.value}`;
+})

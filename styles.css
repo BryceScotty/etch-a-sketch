@@ -72,8 +72,9 @@ h1{
     width:100%;
     padding:0em;
     background-color:white;
-    border:none;
+    border:solid black -10px;
     border-radius:0%;
+
 }
 .gameScreen{
     display:inline-flex;
