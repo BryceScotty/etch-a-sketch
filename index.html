@@ -4,24 +4,29 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Etch-a-Sketch</title>
     <script src="javascript.js" defer></script>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <button class="gridSizeButton">Create Grid</button>
-    <button id="rainbow" class="rainbow button">Rainbow</button>
-    <button id="shade" class="shade button">Shade</button>
-    <button id="lighten" class="lighten button">Lighten</button>
-    <button id="eraser" class="eraser button">Eraser</button>
-    <button id="gridLines" class="gridLines">Toggle Grid Lines</button>
-    <input type="color" value="#000000" id="specificColorChooser" class="specificColorChooser button">
-    <div class="slideContainer">
-        <input type="range" min="1" max="100" value="16" id="slider" class="slider">
-        <p class="sliderOutput"></p>
-    </div>
-    <div class="gameScreenContainer">
-    </div>
+    <h1>Etch-a-Sketch</h1>
+        <div class="buttonsAndGameScreen">
+            <div class="buttonContainer">
+                <input type="color" value="#000000" id="penColorChooser" class="penColorChooser button">
+                <input type="color" value="#FFFFFF" id="backgroundColorChooser" class="backgroundColorChooser button">
+                <button id="re-pickPenColor" class="button">Re-Pick Pen Color</button>
+                <button id="rainbow" class="button">Rainbow</button>
+                <button id="shade" class="button clickedButton">Shade</button>
+                <button id="lighten" class="button">Lighten</button>
+                <button id="eraser" class="button">Eraser</button>
+                <button id="gridLines" class="gridLines">Toggle Grid Lines</button>
+                <div class="sliderContainer">
+                    <input type="range" min="1" max="100" value="16" id="slider" class="slider">
+                    <p class="sliderOutput"></p>
+                </div>
+            </div>
+            <div class="gameScreen"></div>
+        </div>
     
 </body>
 </html>

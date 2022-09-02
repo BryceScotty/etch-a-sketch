@@ -1,24 +1,24 @@
-const gridSizeBtn=document.querySelector(".gridSizeButton")
-const gameScreenContainer=document.querySelector(".gameScreenContainer")
+const gameScreen=document.querySelector(".gameScreen")
 const buttons=document.querySelectorAll(".button")
 const pixelBlocks=document.querySelectorAll(".pixelBlocks")
-
-const slider = document.getElementById("slider");
+const shade=document.getElementById("shade")
+const slider = document.querySelector(".slider");
 const sliderOutput = document.querySelector(".sliderOutput");
 sliderOutput.innerHTML=slider.value
 slider.oninput=function(){
-  sliderOutput.innerHTML = slider.value;
+  sliderOutput.innerHTML = `Grid Size: ${slider.value} x ${slider.value}`;
 }
 
-let mode=''
+let mode='penColorChooser'
 
-gridSizeBtn.addEventListener('click', function createGrid(){
-    gameScreenContainer.textContent=''    
-    for(i=0;i<sliderOutput.innerHTML;i++){
+
+slider.addEventListener('mouseup', function createGrid(){
+    gameScreen.textContent=''    
+    for(i=0;i<slider.value;i++){
         const pixelRowCreation=document.createElement('div')
         pixelRowCreation.classList.add('pixelRows')
-        gameScreenContainer.appendChild(pixelRowCreation)
-        for(j=0;j<sliderOutput.innerHTML;j++){
+        gameScreen.appendChild(pixelRowCreation)
+        for(j=0;j<slider.value;j++){
             const pixelBlockCreation=document.createElement('div')
             pixelBlockCreation.classList.add('pixelBlocks')
             pixelBlockCreation.style.cssText='background-color: rgb(255,255,255)'
@@ -38,9 +38,21 @@ function entireGame(){
     for(const button of buttons){
         button.addEventListener('click', ()=>{
             mode=button.id
-        })}
+            for(const button of buttons){
+                button.classList.remove('clickedButton')
+            }})}
+    for(const button of buttons){
+        button.addEventListener('click', ()=>{
+            button.classList.add('clickedButton')
+        })
+    }
     pixelBlocks.forEach((pixelBlock)=>{
         pixelBlock.addEventListener('mouseover', ()=>{
+            if(mode=='re-pickPenColor'){
+                pixelBlock.addEventListener('click', ()=>{
+                    penColorChooser.value=pixelBlock.background
+                })
+            }
             if(mode=='rainbow'){
                 let color3=Math.floor(Math.random()*255)
                 let color2=Math.floor(Math.random()*255)
@@ -63,9 +75,9 @@ function entireGame(){
                 arrayRGB[2]=Number(arrayRGB[2])+25
                 pixelBlock.style.cssText=`background-color: rgb(${arrayRGB})`
             }
-            if(mode=='specificColorChooser'){
+            if(mode=='penColorChooser'){
                 console.log('ay')
-                pixelBlock.style.cssText=`background-color: ${specificColorChooser.value}`
+                pixelBlock.style.cssText=`background-color: ${penColorChooser.value}`
             }
             if(mode=='eraser'){
                 pixelBlock.style.backgroundColor=`rgb(255,255,255)`
@@ -75,6 +87,13 @@ function entireGame(){
     
 
 
+const sliderContainer=document.querySelector(".sliderContainer")
+slider.addEventListener("mouseenter", ()=>{
+    sliderContainer.classList.toggle("fullOpacity")
+})
+slider.addEventListener("mouseleave", ()=>{
+    sliderContainer.classList.toggle("fullOpacity")
+})
 
 
 
@@ -84,79 +103,19 @@ function entireGame(){
 
 
 
+function oopsie(){
+for(i=0;i<16;i++){
+    const pixelRowCreation=document.createElement('div')
+    pixelRowCreation.classList.add('pixelRows')
+    gameScreen.appendChild(pixelRowCreation)
+    for(j=0;i<16;j++){
+        const pixelBlockCreation=document.createElement('div')
+        pixelBlockCreation.classList.add('pixelBlocks')
+        pixelBlockCreation.style.cssText='background-color: rgb(255,255,255)'
+        pixelRowCreation.appendChild(pixelBlockCreation)
+    }
+}
+entireGame()
+}
 
-        function fook(){
-            pixelBlocks.classList.toggle('noGridLines')
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// function createRainbowMode(){
-//     const pixelBlocks=document.querySelectorAll(".pixelBlocks")
-//     mode='rainbowMode'
-//     console.log('heyy')
-//     pixelBlocks.forEach((pixelBlock)=>{
-//         pixelBlock.addEventListener('mouseover', ()=>{
-//             if(mode==='rainbowMode'){
-//                 let color3=Math.floor(Math.random()*255)
-//                 let color2=Math.floor(Math.random()*255)
-//                 let color1=Math.floor(Math.random()*255)
-//                 pixelBlock.style.cssText=`background-color: rgb(${color1},${color2},${color3});`
-//                 console.log(pixelBlock.style.backgroundColor)
-//                 console.log("------")
-                
-
-//     }})})}
-
-// function createShadeMode(){
-//     const pixelBlocks=document.querySelectorAll(".pixelBlocks")
-//     mode='shadeMode'
-//     pixelBlocks.forEach((pixelBlock)=>{
-//         pixelBlock.addEventListener('mouseover', ()=>{
-//             if(mode=='shadeMode'){
-//                 let stringBackgroundColors=pixelBlock.style.backgroundColor.slice(4,-1)
-//                 const arrayRGB=stringBackgroundColors.split(",")
-//                 arrayRGB[0]=Number(arrayRGB[0])-15
-//                 arrayRGB[1]=Number(arrayRGB[1])-15
-//                 arrayRGB[2]=Number(arrayRGB[2])-15
-//                 pixelBlock.style.cssText=`background-color: rgb(${arrayRGB})`
-//             }
-//         })
-//     })
-// }
-
-// function createLightenMode(){
-//     const pixelBlocks=document.querySelectorAll(".pixelBlocks")
-//     mode='lightenMode'
-//     pixelBlocks.forEach((pixelBlock)=>{
-//         pixelBlock.addEventListener('mouseover', ()=>{
-//             if(mode=='lightenMode'){
-//                 let stringBackgroundColors=pixelBlock.style.backgroundColor.slice(4,-1)
-//                 const arrayRGB=stringBackgroundColors.split(",")
-//                 arrayRGB[0]=Number(arrayRGB[0])+20
-//                 arrayRGB[1]=Number(arrayRGB[1])+20
-//                 arrayRGB[2]=Number(arrayRGB[2])+20
-//                 pixelBlock.style.cssText=`background-color: rgb(${arrayRGB})`
-//             }
-//         })
-//     })
-    
-// }
-
-// rainbowMode.addEventListener('click', createRainbowMode)
-// shadeMode.addEventListener('click', createShadeMode)
-// lightenMode.addEventListener('click', createLightenMode)
+oopsie()
