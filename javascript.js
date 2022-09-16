@@ -11,7 +11,15 @@ slider.oninput=function(){
 let mode='penColorChooser'
 
 
-slider.addEventListener('mouseup', function createGrid(){
+
+
+
+
+
+
+
+
+function createGrid(){
     gameScreen.textContent=''    
     for(i=0;i<slider.value;i++){
         const pixelRowCreation=document.createElement('div')
@@ -25,11 +33,23 @@ slider.addEventListener('mouseup', function createGrid(){
         }
     }
     entireGame()
-})
+}
+
+
+
+
+
+slider.addEventListener('mouseup', createGrid)
 
 function entireGame(){
     const toggleGridLines=document.querySelector(".gridLines")
     const pixelBlocks=document.querySelectorAll(".pixelBlocks")
+    const clear=document.querySelector(".clear")
+    clear.addEventListener('click', ()=>{
+        for(const pixelBlock of pixelBlocks){
+        pixelBlock.style.backgroundColor='rgb(255,255,255)'
+        console.log(pixelBlock.style.backgroundColor)
+    }})
     toggleGridLines.addEventListener('click', ()=>{
         for(const pixelBlock of pixelBlocks){
         pixelBlock.classList.toggle('noGridLines')
@@ -58,10 +78,10 @@ function modes(eventTrigger, conditional){
         pixelBlock.addEventListener(eventTrigger, ()=>{
             if(mouseDown==conditional){
             if(mode=='re-pickPenColor'){
-                pixelBlock.addEventListener('click', ()=>{
-                    penColorChooser.value=pixelBlock.background
-                })
-            }
+                    mode='penColorChooser'
+                    penColorChooser.value='#CCCCCC'
+                    console.log(penColorChooser.value)
+                }
             if(mode=='rainbow'){
                 let color3=Math.floor(Math.random()*255)
                 let color2=Math.floor(Math.random()*255)
@@ -92,8 +112,8 @@ function modes(eventTrigger, conditional){
             if(mode=='eraser'){
                 pixelBlock.style.backgroundColor=`rgb(255,255,255)`
             }
-        }})
-        })}
+            }})})}
+        
 
     
         let mouseDown = false
