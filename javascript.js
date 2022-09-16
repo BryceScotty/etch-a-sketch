@@ -45,8 +45,18 @@ function entireGame(){
             button.classList.add('clickedButton')
         })
     }
+    modes('mouseover', true)
+    modes('mousedown', false)
+    }
+
+function modes(eventTrigger, conditional){
+    const pixelBlocks=document.querySelectorAll(".pixelBlocks")
     pixelBlocks.forEach((pixelBlock)=>{
-        pixelBlock.addEventListener('mouseover', ()=>{
+        pixelBlock.addEventListener('dragstart', (e)=>{
+            e.preventDefault()
+        })
+        pixelBlock.addEventListener(eventTrigger, ()=>{
+            if(mouseDown==conditional){
             if(mode=='re-pickPenColor'){
                 pixelBlock.addEventListener('click', ()=>{
                     penColorChooser.value=pixelBlock.background
@@ -82,10 +92,13 @@ function entireGame(){
             if(mode=='eraser'){
                 pixelBlock.style.backgroundColor=`rgb(255,255,255)`
             }
-        })})}
+        }})
+        })}
 
     
-
+        let mouseDown = false
+        document.body.onmousedown = () => (mouseDown = true)
+        document.body.onmouseup = () => (mouseDown = false)
 
 const sliderContainer=document.querySelector(".sliderContainer")
 slider.addEventListener("mouseenter", ()=>{
