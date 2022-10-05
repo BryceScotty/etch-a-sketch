@@ -12,8 +12,14 @@
     <h1>Etch-a-Sketch</h1>
         <div class="buttonsAndGameScreen">
             <div class="buttonContainer">
-                <input type="color" value="#000000" id="penColorChooser" class="penColorChooser button clickedButton">
-                <input type="color" value="#000000" id="backgroundColorChooser" class="backgroundColorChooser button">
+                <div class="colorContainer pen">
+                    <p class="colorText penColorChooser">Pen Color</p>
+                    <input type="color" value="#000000" id="penColorChooser" class="penColorChooser button textHover clickedButton">
+                </div>
+                <div class="colorContainer background">
+                    <p class="colorText backgroundColorChooser">Background Color</p>
+                    <input type="color" value="#000000" id="backgroundColorChooser" class="backgroundColorChooser textHover button">
+                </div>
                 <button id="re-pickPenColor" class="button">Re-Pick Pen Color</button>
                 <button id="rainbow" class="button">Rainbow</button>
                 <button id="shade" class="button">Shade</button>
