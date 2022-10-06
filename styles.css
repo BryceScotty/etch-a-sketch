@@ -14,7 +14,6 @@ h1{
     font-size:6em;
     color: gold;
 }
-
 .buttonsAndGameScreen{
     display:flex;
     flex-wrap:wrap-reverse;
@@ -38,7 +37,7 @@ h1{
     align-items:center;
 }
 .colorContainer.pen{
-    margin-bottom: -1em;;
+    margin-bottom: -1em;
 }
 .button,
 .gridLines,
@@ -74,7 +73,6 @@ h1{
     transform:scale(1.1);
     background-color:black;
     color:white;
-    opacity:1;
 }
 .penColorChooser,
 .backgroundColorChooser{
@@ -89,7 +87,7 @@ h1{
 }
 .gameScreen{
     display:inline-flex;
-    border:white solid 1px;
+    border:white solid 2px;
     flex-wrap:wrap;
     flex-direction:column;
     width:40vw;

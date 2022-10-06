@@ -1,6 +1,5 @@
 const gameScreen=document.querySelector(".gameScreen")
 const buttons=document.querySelectorAll(".button")
-const pixelBlocks=document.querySelectorAll(".pixelBlocks")
 const slider = document.querySelector(".slider");
 const sliderOutput = document.querySelector(".sliderOutput")
 const rePickPenColor= document.getElementById('re-pickPenColor')
@@ -11,7 +10,6 @@ let mode='penColorChooser'  //Default mode
 //Allows user to click or click & hold where they want their actions to occur
 //Also allows the user to hover above already colored squares without accidentally painting over them
 //So when the user wishes to create an object away from the border, an unwanted trail won't be created
-
 let mouseDown = false
 document.body.onmousedown = () => (mouseDown = true)
 document.body.onmouseup = () => (mouseDown = false)
@@ -30,47 +28,57 @@ function createGrid(){
         }
     }
     allButtons()
+    sliderOutput.innerHTML = `Grid Size: ${slider.value} x ${slider.value}`;
 }
 
 function removeHighlightOnButton(){
-for(const button of buttons){
-    button.addEventListener('click', ()=>{
-        for(const button of buttons){
-            button.classList.remove('clickedButton')
-        }
-        for(text of colorText){
-            text.classList.remove('fullOpacity')
-            text.style.cssText='opacity:0.7'
-        }})}}
+    for(const button of buttons){
+        button.addEventListener('click', ()=>{
+            for(const button of buttons){
+                button.classList.remove('clickedButton')
+            }
+            for(text of colorText){
+                text.classList.remove('fullOpacity')
+                text.style.cssText='opacity:0.7'
+            }
+        })
+    }
+}
         
+function textHighlight(){
+    for(const text of colorText){
+        let textClassNameArray=text.className.split(' ')
+        if(textClassNameArray[1]==mode){
+            text.classList.add('fullOpacity')
+            text.style.cssText='opacity:1'
+        }
+    }
+}
 
 function allButtons(){
     const pixelBlocks=document.querySelectorAll(".pixelBlocks")
+
     const clearButton=document.querySelector(".clear")
     clearButton.addEventListener('click', ()=>{
         for(const pixelBlock of pixelBlocks){
         pixelBlock.style.backgroundColor='rgb(255,255,255)'
-    }})
+        }
+    })
     const toggleGridLinesButton=document.querySelector(".gridLines")
     toggleGridLinesButton.addEventListener('click', ()=>{
         for(const pixelBlock of pixelBlocks){
         pixelBlock.classList.toggle('noGridLines')
-        }})
+        }
+    })
     removeHighlightOnButton()
-
     // Changes mode on button click, adds highlight to current button in use
-
     for(const button of buttons){
         button.addEventListener('click', ()=>{
             mode=button.id
             button.classList.add('clickedButton')
-            for(const text of colorText){
-                if(text.className.slice(10)==mode){
-                    text.classList.add('fullOpacity')
-                    text.style.cssText='opacity:1'
-                }
-            }
-    })}
+            textHighlight()
+        })
+    }
     modes('mouseover', true)
     modes('mousedown', false)
 }
@@ -80,7 +88,7 @@ function modes(eventTrigger, conditional){
     const pixelBlocks=document.querySelectorAll(".pixelBlocks")
     pixelBlocks.forEach((pixelBlock)=>{
         pixelBlock.addEventListener('dragstart', (e)=>{
-            e.preventDefault()    //Prevents cursor from dragging when painting
+            e.preventDefault()   
         })
         pixelBlock.addEventListener(eventTrigger, ()=>{
             let stringRGB=pixelBlock.style.backgroundColor.slice(4,-1) //Makes 'RGB(255,255,255)' go to '255,255,255' for more convenient array split
@@ -93,46 +101,44 @@ function modes(eventTrigger, conditional){
                     let translationRGB='#'
                     const hexArray=['0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F']
                     for(color of arrayRGB){
-                            color/=16
-                            color=color.toString()
-                            if(color.includes('.')){
-                                color=color.split(".")
-                                let firstNumber=hexArray[color[0]]
-                                let secondNumber='.'+color[1]
-                                secondNumber=hexArray[secondNumber*16]
-                                translationRGB+=firstNumber+secondNumber
-                            }
-                            else{
-                                color=hexArray[color] +'0'
-                                translationRGB+=color
-                            }
+                        color/=16
+                        color=color.toString()
+                        if(color.includes('.')){
+                            color=color.split(".")
+                            let firstNumber=hexArray[color[0]]
+                            let secondNumber='.'+color[1]
+                            secondNumber=hexArray[secondNumber*16]
+                            translationRGB+=firstNumber+secondNumber
                         }
+                        else{
+                            color=hexArray[color] +'0'
+                            translationRGB+=color
+                        }
+                    }
                     penColorChooser.value=translationRGB
                     translationRGB='#'
                     penColorChooser.classList.add('clickedButton')
                     rePickPenColor.classList.remove('clickedButton')
                     mode='penColorChooser'
-                    if(colorText){
-                        
-                    }
-                    }
+                    textHighlight()
+                }
                 if(mode=='rainbow'){
-                    let color3=Math.floor(Math.random()*255)
-                    let color2=Math.floor(Math.random()*255)
-                    let color1=Math.floor(Math.random()*255)
-                    pixelBlock.style.cssText=`background-color: rgb(${color1},${color2},${color3});`
+                    for(let i=0; i<3;i++){
+                        arrayRGB[i]=(Math.round(Math.random()*255))
+                    }
+                    pixelBlock.style.cssText=`background-color: rgb(${arrayRGB});`
                 }
                 if(mode=='shade'){
-                    arrayRGB[0]=Number(arrayRGB[0])-25
-                    arrayRGB[1]=Number(arrayRGB[1])-25
-                    arrayRGB[2]=Number(arrayRGB[2])-25
-                    pixelBlock.style.cssText=`background-color: rgb(${arrayRGB})`
+                    for(let i=0; i<3;i++){
+                        arrayRGB[i]-=25
+                    }
+                    pixelBlock.style.cssText=`background-color: rgb(${arrayRGB});`
                 }
                 if(mode=='lighten'){
-                    arrayRGB[0]=Number(arrayRGB[0])+25
-                    arrayRGB[1]=Number(arrayRGB[1])+25
-                    arrayRGB[2]=Number(arrayRGB[2])+25
-                    pixelBlock.style.cssText=`background-color: rgb(${arrayRGB})`
+                    for(let i=0; i<3;i++){
+                        arrayRGB[i]=+arrayRGB[i]+25
+                    }
+                    pixelBlock.style.cssText=`background-color: rgb(${arrayRGB});`
                 }
                 if(mode=='penColorChooser'){
                     pixelBlock.style.cssText=`background-color: ${penColorChooser.value}`
@@ -145,17 +151,20 @@ function modes(eventTrigger, conditional){
                 if(mode=='eraser'){
                     pixelBlock.style.backgroundColor=`rgb(255,255,255)`
                 }
-                }})})}
-            
-            slider.oninput=function(){
-                sliderOutput.innerHTML = `Grid Size: ${slider.value} x ${slider.value}`;
-              }
-              sliderOutput.innerHTML=slider.value
-              slider.addEventListener('mouseup', createGrid)
+            }
+        })
+    })
+}
 
-    
+window.addEventListener('load', createGrid)
 
+slider.oninput=function(){
+    sliderOutput.innerHTML = `Grid Size: ${slider.value} x ${slider.value}`;
+}
 
+slider.addEventListener('mouseup', createGrid)
+
+//Highlight scroll container only when mouse hovers over scroll bar, not text
 const sliderContainer=document.querySelector(".sliderContainer")
 slider.addEventListener("mouseenter", ()=>{
     sliderContainer.classList.toggle("fullOpacity")
@@ -164,38 +173,26 @@ slider.addEventListener("mouseleave", ()=>{
     sliderContainer.classList.toggle("fullOpacity")
 })
 
+//Highlights pen texts when hovered, and unhighlights when exited and is not the current mode
 const inputTypeColors=document.querySelectorAll('.textHover')
 const colorContainers=document.querySelectorAll('.colorContainer')
-for(const input of inputTypeColors){
+for(const input of inputTypeColors){textClassNameArray=
     input.onmouseenter=function(){
         for(const text of colorText){
-            if(text.className.slice(10)==input.id){
+            let textClassNameArray=text.className.split(' ')
+            if(textClassNameArray[1]==input.id){
                 text.style.cssText='opacity:1;'
+            }
         }
     }
-}}
-
+}
 for(const input of inputTypeColors){
     input.onmouseleave=function(){
         for(const text of colorText){
-            if(text.className.slice(10)==input.id){
+            let textClassNameArray=text.className.split(' ')
+            if(!(input.id==mode) && textClassNameArray[1]==input.id){
                 text.style.cssText='opacity:0.7;'
+            }
         }
     }
-}}
-
-window.addEventListener('load', ()=>{
-    for(i=0;i<16;i++){
-        const pixelRowCreation=document.createElement('div')
-        pixelRowCreation.classList.add('pixelRows')
-        gameScreen.appendChild(pixelRowCreation)
-        for(j=0;j<16;j++){
-            const pixelBlockCreation=document.createElement('div')
-            pixelBlockCreation.classList.add('pixelBlocks')
-            pixelBlockCreation.style.cssText='background-color: rgb(255,255,255)'
-            pixelRowCreation.appendChild(pixelBlockCreation)
-        }
-    }
-    allButtons()
-    sliderOutput.innerHTML = `Grid Size: ${slider.value} x ${slider.value}`;
-})
+}
