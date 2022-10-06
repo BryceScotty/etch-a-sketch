@@ -11,8 +11,12 @@ body{
 h1{
     text-align:center;
     padding:.25em;
-    font-size:6em;
+    font-size:5vw;
     color: gold;
+}
+.neon{
+    text-shadow:
+    0 0 5px rgb(255, 255, 255);
 }
 .buttonsAndGameScreen{
     display:flex;
@@ -27,7 +31,9 @@ h1{
     flex-direction:column;
     align-items:space-between;
     justify-content:space-evenly;
+    text-align:center;
     padding:1em;
+    max-width:70vw;
     gap:2em;
 }
 .colorContainer{
@@ -45,6 +51,8 @@ h1{
     padding:.5em 1em;
     background-color:white;
     border:none;
+    text-align:center;
+    font-size:2vw;
     outline:outset gold 4px;
     border-radius:1000px;
     font-size:1em;

@@ -9,31 +9,31 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Etch-a-Sketch</h1>
-        <div class="buttonsAndGameScreen">
-            <div class="buttonContainer">
-                <div class="colorContainer pen">
-                    <p class="colorText penColorChooser fullOpacity">Pen Color</p>  <!--Make sure to keep 'penColorChooser' as second class name, effects text highlighting-->
-                    <input type="color" value="#000000" id="penColorChooser" class="penColorChooser button textHover clickedButton">
-                </div>
-                <div class="colorContainer background">
-                    <p class="colorText backgroundColorChooser">Background Color</p> <!--Make sure to keep 'backgroundColorChooser' as second class name, effects text highlighting-->
-                    <input type="color" value="#000000" id="backgroundColorChooser" class="backgroundColorChooser textHover button">
-                </div>
-                <button id="re-pickPenColor" class="button">Re-Pick Pen Color</button>
-                <button id="rainbow" class="button">Rainbow</button>
-                <button id="shade" class="button">Shade</button>
-                <button id="lighten" class="button">Lighten</button>
-                <button id="eraser" class="button">Eraser</button>
-                <button id="gridLines" class="gridLines">Toggle Grid Lines</button>
-                <button id="clear" class="clear">Clear</button>
-                <div class="sliderContainer">
-                    <input type="range" min="1" max="100" value="16" id="slider" class="slider">
-                    <p class="sliderOutput">Grid Size 16 x 16</p>
-                </div>
+    <h1 class="neon">Etch-a-Sketch</h1>
+    <div class="buttonsAndGameScreen">
+        <div class="buttonContainer">
+            <div class="colorContainer pen">
+                <p class="colorText penColorChooser fullOpacity">Pen Color</p>  <!--Make sure to keep 'penColorChooser' as second class name, effects text highlighting-->
+                <input type="color" value="#12F37E" id="penColorChooser" class="penColorChooser button textHover clickedButton">
             </div>
-            <div class="gameScreen"></div>
+            <div class="colorContainer background">
+                <p class="colorText backgroundColorChooser">Background Color</p> <!--Make sure to keep 'backgroundColorChooser' as second class name, effects text highlighting-->
+                <input type="color" value="#000000" id="backgroundColorChooser" class="backgroundColorChooser textHover button">
+            </div>
+            <button id="re-pickPenColor" class="button">Re-Pick Pen Color</button>
+            <button id="rainbow" class="button">Rainbow</button>
+            <button id="shade" class="button">Shade</button>
+            <button id="lighten" class="button">Lighten</button>
+            <button id="eraser" class="button">Eraser</button>
+            <button id="gridLines" class="gridLines">Toggle Grid Lines</button>
+            <button id="clear" class="clear">Clear</button>
+            <div class="sliderContainer">
+                <input type="range" min="1" max="100" value="16" id="slider" class="slider">
+                <p class="sliderOutput">Grid Size 16 x 16</p>
+            </div>
         </div>
-    
+        <div class="gameScreen">
+        </div>
+    </div>
 </body>
 </html>
